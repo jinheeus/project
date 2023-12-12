@@ -1,0 +1,55 @@
+<!-- talk.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TasteMap_게시판</title>
+    <style>
+        body {
+            background-color: #df9be7;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #ff00ff; /* 마젠타 색상 */
+            padding: 10px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .post {
+            width: calc(100% / 9);
+            height: 100px; /* 높이 조절 */
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        TasteMap_게시판
+    </div>
+
+    <div class="content" id="content">
+        <!-- 글이 추가될 영역 -->
+    </div>
+
+    <script src="talk.js"></script>
+</body>
+</html>
