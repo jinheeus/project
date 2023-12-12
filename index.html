@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAI를 이용한 챗봇</title>
+    <title>TasteMap</title>
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #df9be7;
+        }
+        header {
+            width: 100%;
+            background-color: #f8bbd0; /* 예시 색상 - 음식과 어울리는 색상으로 변경 가능 */
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom : 50px
         }
         .message {
             border-top: 1px solid #ccc;
@@ -20,10 +30,13 @@
         }
         #chat-container {
             width: 400px;
-            height: 600px;
+            height: 700px;
             display: flex;
             flex-direction: column;
             border: 1px solid #ccc;
+            background-color: white;
+            border-radius: 15px;
+            border : 7px solid black;
         }
         #chat-messages {
             flex: 1;
@@ -35,7 +48,7 @@
         #user-input {
             display: flex;
             padding: 10px;
- 
+            border-radius: 5px;
         }
         #user-input input {
             flex: 1;
@@ -48,14 +61,17 @@
             color: white;
             padding: 10px 15px;
             cursor: pointer;
+            border-radius: 5px;
+            margin-left : 3px;
         }
     </style>
 </head>
 <body>
+    <header>🍔TasteMap</header>
     <div id="chat-container">
         <div id="chat-messages"></div>
         <div id="user-input">
-            <input type="text" placeholder="메시지를 입력하세요..." />
+            <input type="text" placeholder="먹고 싶은 음식에 대한 느낌을 입력하세요..." />
             <button>전송</button>
         </div>
     </div>
