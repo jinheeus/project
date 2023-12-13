@@ -1,71 +1,71 @@
-// Ã¤ÆÃ ¸Ş½ÃÁö¸¦ Ç¥½ÃÇÒ DOM
+// ì±„íŒ… ë©”ì‹œì§€ë¥¼ í‘œì‹œí•  DOM
 const chatMessages = document.querySelector('#chat-messages');
-// »ç¿ëÀÚ ÀÔ·Â ÇÊµå
+// ì‚¬ìš©ì ì…ë ¥ í•„ë“œ
 const userInput = document.querySelector('#user-input input');
-// Àü¼Û ¹öÆ°
+// ì „ì†¡ ë²„íŠ¼
 const sendButton = document.querySelector('#user-input button');
-// ¹ß±Ş¹ŞÀº OpenAI API Å°¸¦ º¯¼ö·Î ÀúÀå
-const apiKey = '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';
-// OpenAI API ¿£µåÆ÷ÀÎÆ® ÁÖ¼Ò¸¦ º¯¼ö·Î ÀúÀå
+// ë°œê¸‰ë°›ì€ OpenAI API í‚¤ë¥¼ ë³€ìˆ˜ë¡œ ì €ì¥
+const apiKey = 'API KEY ì…ë ¥';
+// OpenAI API ì—”ë“œí¬ì¸íŠ¸ ì£¼ì†Œë¥¼ ë³€ìˆ˜ë¡œ ì €ì¥
 const apiEndpoint = 'https://api.openai.com/v1/chat/completions'
 function addMessage(sender, message) {
-    // »õ·Î¿î div »ı¼º
+    // ìƒˆë¡œìš´ div ìƒì„±
     const messageElement = document.createElement('div');
-    // »ı¼ºµÈ ¿ä¼Ò¿¡ Å¬·¡½º Ãß°¡
+    // ìƒì„±ëœ ìš”ì†Œì— í´ë˜ìŠ¤ ì¶”ê°€
     messageElement.className = 'message';
-    // Ã¤ÆÃ ¸Ş½ÃÁö ¸ñ·Ï¿¡ »õ·Î¿î ¸Ş½ÃÁö Ãß°¡
+    // ì±„íŒ… ë©”ì‹œì§€ ëª©ë¡ì— ìƒˆë¡œìš´ ë©”ì‹œì§€ ì¶”ê°€
     messageElement.textContent = `${sender}: ${message}`;
     chatMessages.prepend(messageElement);
 }
-// ChatGPT API ¿äÃ»
+// ChatGPT API ìš”ì²­
 async function fetchAIResponse(prompt) {
-    // API ¿äÃ»¿¡ »ç¿ëÇÒ ¿É¼ÇÀ» Á¤ÀÇ
+    // API ìš”ì²­ì— ì‚¬ìš©í•  ì˜µì…˜ì„ ì •ì˜
     const requestOptions = {
         method: 'POST',
-        // API ¿äÃ»ÀÇ Çì´õ¸¦ ¼³Á¤
+        // API ìš”ì²­ì˜ í—¤ë”ë¥¼ ì„¤ì •
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: "gpt-3.5-turbo",  // »ç¿ëÇÒ AI ¸ğµ¨
+            model: "gpt-3.5-turbo",  // ì‚¬ìš©í•  AI ëª¨ë¸
             messages: [{
-                role: "user", // ¸Ş½ÃÁö ¿ªÇÒÀ» user·Î ¼³Á¤
-                content: prompt // »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¸Ş½ÃÁö
+                role: "user", // ë©”ì‹œì§€ ì—­í• ì„ userë¡œ ì„¤ì •
+                content: prompt // ì‚¬ìš©ìê°€ ì…ë ¥í•œ ë©”ì‹œì§€
             },],
-            temperature: 0.8, // ¸ğµ¨ÀÇ Ãâ·Â ´Ù¾ç¼º
-            max_tokens: 1024, // ÀÀ´ä¹ŞÀ» ¸Ş½ÃÁö ÃÖ´ë ÅäÅ«(´Ü¾î) ¼ö ¼³Á¤
-            top_p: 1, // ÅäÅ« »ùÇÃ¸µ È®·üÀ» ¼³Á¤
-            frequency_penalty: 0.5, // ÀÏ¹İÀûÀ¸·Î ³ª¿ÀÁö ¾Ê´Â ´Ü¾î¸¦ ¾ïÁ¦ÇÏ´Â Á¤µµ
-            presence_penalty: 0.5, // µ¿ÀÏÇÑ ´Ü¾î³ª ±¸¹®ÀÌ ¹İº¹µÇ´Â °ÍÀ» ¾ïÁ¦ÇÏ´Â Á¤µµ
-            stop: ["Human"], // »ı¼ºµÈ ÅØ½ºÆ®¿¡¼­ Á¾·á ±¸¹®À» ¼³Á¤
+            temperature: 0.8, // ëª¨ë¸ì˜ ì¶œë ¥ ë‹¤ì–‘ì„±
+            max_tokens: 1024, // ì‘ë‹µë°›ì„ ë©”ì‹œì§€ ìµœëŒ€ í† í°(ë‹¨ì–´) ìˆ˜ ì„¤ì •
+            top_p: 1, // í† í° ìƒ˜í”Œë§ í™•ë¥ ì„ ì„¤ì •
+            frequency_penalty: 0.5, // ì¼ë°˜ì ìœ¼ë¡œ ë‚˜ì˜¤ì§€ ì•ŠëŠ” ë‹¨ì–´ë¥¼ ì–µì œí•˜ëŠ” ì •ë„
+            presence_penalty: 0.5, // ë™ì¼í•œ ë‹¨ì–´ë‚˜ êµ¬ë¬¸ì´ ë°˜ë³µë˜ëŠ” ê²ƒì„ ì–µì œí•˜ëŠ” ì •ë„
+            stop: ["Human"], // ìƒì„±ëœ í…ìŠ¤íŠ¸ì—ì„œ ì¢…ë£Œ êµ¬ë¬¸ì„ ì„¤ì •
         }),
     };
-    // API ¿äÃ»ÈÄ ÀÀ´ä Ã³¸®
+    // API ìš”ì²­í›„ ì‘ë‹µ ì²˜ë¦¬
     try {
         const response = await fetch(apiEndpoint, requestOptions);
         const data = await response.json();
         const aiResponse = data.choices[0].message.content;
         return aiResponse;
     } catch (error) {
-        console.error('OpenAI API È£Ãâ Áß ¿À·ù ¹ß»ı:', error);
-        return 'OpenAI API È£Ãâ Áß ¿À·ù ¹ß»ı';
+        console.error('OpenAI API í˜¸ì¶œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ:', error);
+        return 'OpenAI API í˜¸ì¶œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ';
     }
 }
-// Àü¼Û ¹öÆ° Å¬¸¯ ÀÌº¥Æ® Ã³¸®
+// ì „ì†¡ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ ì²˜ë¦¬
 sendButton.addEventListener('click', async () => {
-    // »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¸Ş½ÃÁö
+    // ì‚¬ìš©ìê°€ ì…ë ¥í•œ ë©”ì‹œì§€
     const message = userInput.value.trim();
-    // ¸Ş½ÃÁö°¡ ºñ¾îÀÖÀ¸¸é ¸®ÅÏ
+    // ë©”ì‹œì§€ê°€ ë¹„ì–´ìˆìœ¼ë©´ ë¦¬í„´
     if (message.length === 0) return;
-    // »ç¿ëÀÚ ¸Ş½ÃÁö È­¸é¿¡ Ãß°¡
+    // ì‚¬ìš©ì ë©”ì‹œì§€ í™”ë©´ì— ì¶”ê°€
     addMessage('You', message);
     userInput.value = '';
-    //ChatGPT API ¿äÃ»ÈÄ ´äº¯À» È­¸é¿¡ Ãß°¡
+    //ChatGPT API ìš”ì²­í›„ ë‹µë³€ì„ í™”ë©´ì— ì¶”ê°€
     const aiResponse = await fetchAIResponse(message);
     addMessage('TasteMap', aiResponse);
 });
-// »ç¿ëÀÚ ÀÔ·Â ÇÊµå¿¡¼­ Enter Å° ÀÌº¥Æ®¸¦ Ã³¸®
+// ì‚¬ìš©ì ì…ë ¥ í•„ë“œì—ì„œ Enter í‚¤ ì´ë²¤íŠ¸ë¥¼ ì²˜ë¦¬
 userInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         sendButton.click();
